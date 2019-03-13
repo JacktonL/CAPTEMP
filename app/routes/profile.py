@@ -1,11 +1,12 @@
 from app.routes import app
-from flask import render_template, session
+from flask import render_template, session, redirect
 
 
 @app.route("/profile")
 def profile():
 
-    if session["displayName"]:
+    try:
+        session["displayName"]
         return render_template("profile.html")
-    else:
-        return "Login"
+    except KeyError:
+        return redirect("/error")

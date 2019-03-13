@@ -9,7 +9,7 @@
         <a class="nav-link" href="/" style="color: #ffffff">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/donate" style="color: #ffffff">Donate</a>
+        <a class="nav-link" href="/donation" style="color: #ffffff">Donate</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -19,7 +19,7 @@
               {{ session["displayName"] }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href={{ "/student/" + session["displayName"].replace(" ", "_") }}>Profile</a>
+                <a class="dropdown-item" href="/profile">Profile</a>
                 <a class="dropdown-item" href="/logout">Logout</a>
             </div>
             </li>
