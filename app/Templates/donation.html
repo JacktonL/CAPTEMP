@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="jumbotron">
-    </div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="card-1212121">
+                {% for i in range(1, 10) %}
+                    <div class="card">
+                        <div class="card-header">
+                             <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-1212121" href={{ "#card-element-100000%s" % i|string }} style="color:#000000">Collapsible Group Item #{{ i }}</a>
+                        </div>
+                        <div id={{ "card-element-100000%s" % i|string }} class="collapse">
+                            <div class="card-body">
+                                Anim pariatur cliche...
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
