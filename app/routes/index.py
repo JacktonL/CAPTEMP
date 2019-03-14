@@ -3,6 +3,8 @@ from app.routes import app
 from flask import render_template, session, redirect, request
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
+from .misc import usercheck
+
 
 
 google_auth = GoogleClient(
@@ -28,9 +30,13 @@ def login():
         r = s.get("https://www.googleapis.com/plus/v1/people/me?access_token={}".format(session.get("access_token")))
     r.raise_for_status()
     data = r.json()
-    session["displayName"] = data["displayName"]
-    session["routeName"] = data["displayName"].replace(" ", "_")
-    return redirect("/")
+    if usercheck(data["emails"][0]['value']):
+        session["displayName"] = data["displayName"]
+        session["routeName"] = data["displayName"].replace(" ", "_")
+        return redirect("/")
+    else:
+        session.pop("access_token")
+        return "You have to have an affiliation with Oakland Tech to have a profile"
 
 
 @app.route("/oauth2callback")
