@@ -3,8 +3,7 @@ from app.routes import app
 from flask import render_template, session, redirect, request
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
-from .misc import usercheck
-
+from .misc import usercheck, createuser, User
 
 
 google_auth = GoogleClient(
@@ -33,6 +32,11 @@ def login():
     if usercheck(data["emails"][0]['value']):
         session["displayName"] = data["displayName"]
         session["routeName"] = data["displayName"].replace(" ", "_")
+        # Creates new user if display is not in a User object
+        for i in User.objects():
+            if i.name == data["displayName"]:
+                return redirect("/")
+        createuser(data["displayName"], data["emails"][0]['value'])
         return redirect("/")
     else:
         session.pop("access_token")
