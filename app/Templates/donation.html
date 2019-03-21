@@ -8,11 +8,11 @@
                 {% for i in asks %}
                     <div class="card">
                         <div class="card-header">
-                             <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-1212121" href={{ "#card-element-100000%s" % i|string }} style="color:#000000">{{ i.asker.name }} needs {{ i.item_name }}</a>
+                             <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-1212121" href={{ "#card-element-{}{}".format(i[0], "0"*(7-i[0]|string|length)) }} style="color:#000000">{{ i[1].asker.name }} needs {{ i[1].item_name }}</a>
                         </div>
-                        <div id={{ "card-element-100000%s" % i|string }} class="collapse">
+                        <div id={{ "card-element-{}{}".format(i[0], "0"*(7-i[0]|string|length)) }} class="collapse">
                             <div class="card-body">
-                                {{ i.description }}
+                                {{ i[1].description }}
                             </div>
                         </div>
                     </div>

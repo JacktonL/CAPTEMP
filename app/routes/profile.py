@@ -14,7 +14,6 @@ def profile():
 
     form = Request(request.form)
     if request.method == 'POST' and form.validate():
-        print(True)
         for i in User.objects:
             if i.name == session["displayName"]:
                 newask = Ask()

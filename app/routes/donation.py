@@ -5,5 +5,5 @@ from .Classes import Ask
 
 @app.route("/donation")
 def donation():
-    return render_template("donation.html", asks=Ask.objects)
+    return render_template("donation.html", asks=list(enumerate(Ask.objects, 1)))
 
