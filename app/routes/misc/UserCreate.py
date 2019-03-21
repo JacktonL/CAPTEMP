@@ -1,10 +1,4 @@
-from mongoengine import Document, StringField
-
-
-class User(Document):
-
-    name = StringField()
-    email = StringField()
+from app.routes.Classes import User
 
 
 def createuser(name, email):
