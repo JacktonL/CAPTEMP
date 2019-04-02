@@ -73,4 +73,5 @@ def logout():
 
 @app.errorhandler(404)
 def page_not_found(e):
+    flash("page not found")
     return render_template("error.html")
