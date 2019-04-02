@@ -7,3 +7,9 @@ from .Classes import Ask
 def donation():
     return render_template("donation.html", asks=list(enumerate(Ask.objects, 1)))
 
+
+@app.route("/request/<request>")
+def requestpage(request):
+
+    return render_template("requestpage.html", request=request)
+

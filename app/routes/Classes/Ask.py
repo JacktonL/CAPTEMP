@@ -7,3 +7,4 @@ class Ask(Document):
     asker = ReferenceField(User)
     item_name = StringField()
     description = StringField()
+
