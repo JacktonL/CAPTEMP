@@ -1,6 +1,6 @@
 import requests
 from app.routes import app
-from flask import render_template, session, redirect, request
+from flask import render_template, session, redirect, request, flash
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
 from .misc import usercheck, createuser, User
@@ -40,7 +40,8 @@ def login():
         return redirect("/")
     else:
         session.pop("access_token")
-        return "You have to have an affiliation with Oakland Tech to have a profile"
+        flash("Must be a Oakland Tech teacher to login")
+        return redirect("/error")
 
 
 @app.route("/oauth2callback")
