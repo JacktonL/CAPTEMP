@@ -17,7 +17,6 @@ google_auth = GoogleClient(
 
 @app.route('/')
 def index():
-    print(displayname())
     return render_template("index.html")
 
 
