@@ -56,7 +56,7 @@ emails = ['carlyn.adamson@ousd.org', 'tonya.akins@ousd.org', 'arthur.allen@ousd.
           'lori.watkins@ousd.org', 'rosemary.whisenton@ousd.org', 'david.williams@ousd.org',
           'Philip.Williams@ousd.org', 'joel.wing@ousd.org', 'jah-yee.woo@ousd.org',
           'stephen.wright@ousd.org', 'wing.yee@ousd.org', 'seth.zimmerman@ousd.org',
-          's_jackton.levy@ousd.org']
+          's_jackton.levy@ousd.org', "s_clemente.ferrer@ousd.org"]
 
 
 def usercheck(email):
