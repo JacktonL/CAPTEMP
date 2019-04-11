@@ -1,8 +1,8 @@
 from app.routes import app
-from flask import render_template, session, redirect, request
+from flask import render_template, session, redirect, request, flash
 from .Forms import Request
 from .Classes import Ask, User
-from .misc import displayname
+from .misc import displayname, indexer
 
 
 @app.route("/profile", methods=["GET", "POST"])
@@ -26,4 +26,28 @@ def profile():
             newask.save()
 
     return render_template("profile.html", form=form, asks=enumerate(Ask.objects(asker=user), 1))
+
+
+@app.route("/delete/<index>")
+def delete(index):
+    try:
+        index = int(index)
+
+    except ValueError:
+        flash("Unknown Index")
+        return render_template("error.html")
+
+    user = User.objects(name=session["displayName"])[0]
+    asks = Ask.objects(asker=user)
+
+    for i in asks:
+        if index == i.index:
+            i.delete()
+            indexer(user)
+            if len(asks) == 1:
+                user.update(asks=0)
+            else:
+                user.update(asks=len(asks)-1)
+            return redirect("/profile")
+
 
