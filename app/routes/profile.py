@@ -51,3 +51,10 @@ def delete(index):
             return redirect("/profile")
 
 
+@app.route("/User/<user>")
+def profilepage(user):
+    user = user.replace("_", " ")
+    user = User.objects(name=user)[0]
+    asks = Ask.objects(asker=user)
+
+    return render_template("profilepage.html", user=user, asks=asks)

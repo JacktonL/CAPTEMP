@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>{{ user.name }}</h1>
+        <br>
+        <h4>Asks</h4>
+        {% for i in asks %}
+            <p>Name: {{ i.item_name }} Description: {{ i.description }}</p>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
