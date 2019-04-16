@@ -13,6 +13,7 @@
                         <div id={{ "card-element-{}{}".format("0"*(7-i[0]|string|length), i[0]) }} class="collapse">
                             <div class="card-body">
                                 {{ i[1].description }}
+                                <a href={{ "/donation/{}/{}".format(i[1].asker.name.replace(" ", "_"), i[1].index) }}>View Page</a>
                             </div>
                         </div>
                     </div>

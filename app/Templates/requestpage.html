@@ -2,6 +2,7 @@
 
 {% block body %}
     <div class="jumbotron">
-        {{ request }}
+        <a href={{ "/user/{}".format(request.asker.name.replace(" ", "_")) }}>{{ request.asker.name }}</a>
+        {{ request.item_name }}
     </div>
 {% endblock %}
