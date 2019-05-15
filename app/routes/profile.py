@@ -7,11 +7,14 @@ from .misc import displayname, indexer
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    user = 0
     try:
-        if session["displayName"] in displayname():
+        if session["isUser"]:
             user = User.objects(name=session["displayName"])[0]
+        else:
+            flash("Must be a Oakland Tech Teacher to access profile")
+            return redirect("/error")
     except KeyError:
+        flash("Must login to access profile")
         return redirect("/error")
 
     form = Request(request.form)
@@ -20,6 +23,7 @@ def profile():
             newask.asker = user
             newask.item_name = form.item_name.data
             newask.description = form.description.data
+            newask.complete = False
             user.reload()
             user.update(asks=user.asks+1)
             newask.index = user.asks + 1
@@ -35,7 +39,7 @@ def delete(index):
 
     except ValueError:
         flash("Unknown Index")
-        return render_template("error.html")
+        return redirect("/error")
 
     user = User.objects(name=session["displayName"])[0]
     asks = Ask.objects(asker=user)

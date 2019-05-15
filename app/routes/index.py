@@ -3,7 +3,8 @@ from app.routes import app
 from flask import render_template, session, redirect, request, flash
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
-from .misc import usercheck, createuser, displayname
+from .misc import usercheck, createuser, displayname, donorcreate
+from .Classes import Ask
 
 
 google_auth = GoogleClient(
@@ -17,7 +18,8 @@ google_auth = GoogleClient(
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    complete = Ask.objects(complete=True)
+    return render_template("index.html", Completed=complete)
 
 
 @app.route('/login')
@@ -29,17 +31,27 @@ def login():
         r = s.get("https://www.googleapis.com/plus/v1/people/me?access_token={}".format(session.get("access_token")))
     r.raise_for_status()
     data = r.json()
+    if data["emails"][0]['value'] in displayname():
+        session["displayName"] = data["displayName"]
+        session["routeName"] = data["displayName"].replace(" ", "_")
+        if usercheck(data["emails"][0]['value']):
+            session["isUser"] = True
+        else:
+            session["isUser"] = False
+        return redirect("/")
     if usercheck(data["emails"][0]['value']):
         session["displayName"] = data["displayName"]
         session["routeName"] = data["displayName"].replace(" ", "_")
+        session["isUser"] = True
         # Creates new user if display is not in a User object:
-        if data["displayName"] in displayname():
-            return redirect("/")
         createuser(data["displayName"], data["emails"][0]['value'])
-        return redirect("/")
-    session.pop("access_token")
-    flash("Must be a Oakland Tech teacher to login")
-    return redirect("/error")
+    else:
+        session["displayName"] = data["displayName"]
+        session["routeName"] = data["displayName"].replace(" ", "_")
+        session["isUser"] = False
+        # Creates new user if display is not in a User object:
+        donorcreate(data["displayName"], data["emails"][0]['value'])
+    return redirect("/")
 
 
 @app.route("/oauth2callback")

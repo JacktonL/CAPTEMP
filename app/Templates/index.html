@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="jumbotron">
+    <div class='container'>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Home</h1>
+      <hr>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-7 col-md-12 col-sm-12">
+      <div class="jumbotron">
+          <h1 class="text-center">Recent Donations</h1>
+          <ul class="list-group">
+              {% for i in Completed %}
+                  <li class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            {{ i.donor.name }} gave {{ i.asker.name }} {{ i.item_name }}
+                            <br>
+                            <a href={{ "/donation/{}/{}".format(i.asker.name.replace(" ", "_"), i.index) }}>View Page</a>
+                        </h5>
+                    </div>
+                  </li>
+              {% endfor %}
+          </ul>
+      </div>
+    </div>
+  </div>
 {% endblock %}

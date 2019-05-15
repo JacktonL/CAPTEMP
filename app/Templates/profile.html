@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="jumbotron">
-        {{ session["displayName"] }}
+        <h3>{{ session["displayName"] }}</h3>
         <br>
         <h4>New Request:</h4>
         <br>
@@ -27,7 +27,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Page Link</th>
                                 <th>Delete?</th>
                             </tr>
                         </thead>
@@ -40,8 +40,8 @@
                                 {% endif %}
                                     <td>{{ i[1].index }}</td>
                                     <td>{{ i[1].item_name }}</td>
-                                    <td>{{ i[1].description }}</td>
-                            <td><a href={{ "/delete/{}".format(i[1].index) }}>Delete?</a></td>
+                                    <td><a href={{ "/donation/{}/{}".format(i[1].asker.name.replace(" ", "_"), i[1].index) }}>View Page</a></td>
+                                    <td><a href={{ "/delete/{}".format(i[1].index) }}>Delete?</a></td>
                                     </tr>
                             {% endfor %}
                         </tbody>

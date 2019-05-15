@@ -1,5 +1,7 @@
-from app.routes.Classes import User
+from app.routes.Classes import User, Donor
 
 
 def displayname():
-    return [x.name for x in User.objects]
+    u = [x.email for x in User.objects]
+    d = [x.email for x in Donor.objects]
+    return u + d

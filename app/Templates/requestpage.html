@@ -2,7 +2,15 @@
 
 {% block body %}
     <div class="jumbotron">
-        <a href={{ "/user/{}".format(request.asker.name.replace(" ", "_")) }}>{{ request.asker.name }}</a>
-        {{ request.item_name }}
+        <a href={{ "/user/{}".format(request.asker.name.replace(" ", "_")) }}><h3>{{ request.asker.name }}</h3></a>
+        <p>Item Name: {{ request.item_name }}</p>
+        <p>Item Description: {{ request.description }}</p>
+        {% if session["displayName"] %}
+            {% if not request.complete %}
+                <a href={{ "/donate/{}/{}/{}".format(request.asker.name.replace(" ", "_"), request.index, session["routeName"])}}><button type="button" class="btn btn-primary">Donate</button></a>
+            {% else %}
+                <h3>Donation completed by: {{ request.donor.name }}</h3>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
