@@ -1,54 +1,55 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="jumbotron">
-        <h3>{{ session["displayName"] }}</h3>
-        <br>
-        <h4>New Request:</h4>
-        <br>
-        <form method=post>
-            {{ form.hidden_tag() }}
-            {{ form.item_name.label }}
-            {{ form.item_name() }}
+    <div class="container">
+        <div class="jumbotron">
+            <h3>{{ session["displayName"] }}</h3>
             <br>
-            {{ form.description.label }}
-            {{ form.description() }}
+            <h4>New Request:</h4>
             <br>
-            {{ form.submit() }}
-        </form>
-    </div>
-    <div class="jumbotron">
-        <h4>Your Requests</h4>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Page Link</th>
-                                <th>Delete?</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for i in asks %}
-                                {% if i[0] % 2 == 0 %}
-                                    <tr>
-                                {% else %}
-                                    <tr class="table-active">
-                                {% endif %}
-                                    <td>{{ i[1].index }}</td>
-                                    <td>{{ i[1].item_name }}</td>
-                                    <td><a href={{ "/donation/{}/{}".format(i[1].asker.name.replace(" ", "_"), i[1].index) }}>View Page</a></td>
-                                    <td><a href={{ "/delete/{}".format(i[1].index) }}>Delete?</a></td>
-                                    </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+            <form method=post>
+                {{ form.hidden_tag() }}
+                {{ form.item_name.label }}
+                {{ form.item_name() }}
+                <br>
+                {{ form.description.label }}
+                {{ form.description() }}
+                <br>
+                {{ form.submit() }}
+            </form>
+        </div>
+        <div class="jumbotron">
+            <h4>Your Requests</h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Page Link</th>
+                                    <th>Delete?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in asks %}
+                                    {% if i[0] % 2 == 0 %}
+                                        <tr>
+                                    {% else %}
+                                        <tr class="table-active">
+                                    {% endif %}
+                                        <td>{{ i[1].index }}</td>
+                                        <td>{{ i[1].item_name }}</td>
+                                        <td><a href={{ "/donation/{}/{}".format(i[1].asker.name.replace(" ", "_"), i[1].index) }}>View Page</a></td>
+                                        <td><a href={{ "/delete/{}".format(i[1].index) }}>Delete?</a></td>
+                                        </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}

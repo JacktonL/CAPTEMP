@@ -19,7 +19,9 @@
               {{ session["displayName"] }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/profile">Profile</a>
+                {% if session["isUser"] %}
+                    <a class="dropdown-item" href="/profile">Profile</a>
+                {% endif %}
                 <a class="dropdown-item" href="/logout">Logout</a>
             </div>
             </li>
