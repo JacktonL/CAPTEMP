@@ -16,7 +16,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Page Link</th>
-                                <th>Donate</th>
+                                <th>Complete?</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +29,7 @@
                                     <td>{{ i[1].index }}</td>
                                     <td>{{ i[1].item_name }}</td>
                                     <td><a href={{ "/donation/{}/{}".format(i[1].asker.name.replace(" ", "_"), i[1].index) }}>View Page</a></td>
-                                    <td><a href="#">Donate</a></td>
+                                    <td>{{ i[1].complete }}</td>
                                     </tr>
                             {% endfor %}
                         </tbody>

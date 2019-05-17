@@ -75,9 +75,7 @@ def google_oauth2callback():
 
 @app.route("/logout")
 def logout():
-    session.pop("access_token")
-    session.pop("displayName")
-
+    [session.pop(key) for key in list(session.keys()) if key != '_flashes']
     return redirect("/")
 
 
